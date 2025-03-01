@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root'
 })
 export class BlogService {
-  private _snackBar = inject(MatSnackBar);
+  private snackBar = inject(MatSnackBar);
 
   public posts: Post[] = [];
   public thumbnails: Thumbnail[] = [];
@@ -37,7 +37,7 @@ export class BlogService {
     post.code = this.makeID();
     this.posts.push(post);
     localStorage.setItem('posts', JSON.stringify(this.posts));
-    this._snackBar.open('Seu post foi salvo com sucesso!', 'Ok');
+    this.snackBar.open('Seu post foi salvo com sucesso!', 'Ok');
   }
 
   private saveAllPosts() {
