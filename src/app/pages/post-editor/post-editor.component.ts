@@ -42,6 +42,7 @@ export class PostEditorComponent {
       this.post.endDate = result.endDate;
 
       this.blog.savePost(this.post);
+      this.navigate.blog();
     });
   }
 
