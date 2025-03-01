@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Post, Thumbnail } from '../models/blog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlogService {
+  private _snackBar = inject(MatSnackBar);
+
   public posts: Post[] = [];
   public thumbnails: Thumbnail[] = [];
 
@@ -34,6 +37,7 @@ export class BlogService {
     post.code = this.makeID();
     this.posts.push(post);
     localStorage.setItem('posts', JSON.stringify(this.posts));
+    this._snackBar.open('Seu post foi salvo com sucesso!', 'Ok');
   }
 
   private saveAllPosts() {
