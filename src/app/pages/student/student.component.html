@@ -1,0 +1,54 @@
+<header>
+    <div class="left">
+        <span (click)="backHome()">Sirne</span>
+    </div>
+    <div class="center">
+        <span>Aluno: {{ student.name }}</span>
+    </div>
+    <div class="right">
+        @if (change) {
+            <button mat-flat-button>
+                <span>Confirma</span>
+                <mat-icon iconPositionEnd fontIcon="check" />
+            </button>
+        }
+    </div>
+</header>
+
+<main>
+    <app-suspended title="Dados do Estudante" (state)="dataStudentOpen = $event" />
+    @if (dataStudentOpen === 'open') {
+        <form #studentForm="ngForm" (ngSubmit)="confirm(studentForm)">
+            <mat-form-field appearance="outline">
+                <mat-label>Nome</mat-label>
+                <input matInput ngForm required type="text" [value]="student.name">
+            </mat-form-field>
+            
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Sala</mat-label>
+                    <input matInput ngForm required type="number" [value]="student.room">
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                    <mat-label>Curso</mat-label>
+                    <input matInput ngForm required type="text" [value]="student.course.name">
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                    <mat-label>Turno</mat-label>
+                    <mat-select [value]="student.shift" required>
+                        <mat-option value="matutino">Matutino</mat-option>
+                        <mat-option value="vespertino">Vespertino</mat-option>
+                        <mat-option value="noturno">Noturno</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </form>
+    }
+
+    <app-suspended title="Notas do Estudante" />
+    <form #studentGrades="ngForm">
+        
+    </form>
+</main>

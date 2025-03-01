@@ -1,0 +1,47 @@
+<header>
+    <div class="left">
+        <span>Sirne</span>
+    </div>
+    <div class="center">
+        <mat-icon fontIcon="search" />
+        <input type="search" [(ngModel)]="searchTerm" (input)="search(searchTerm)" placeholder="Digite o nome do post...">
+    </div>
+    <div class="right">
+        <div class="menu">
+            <mat-button-toggle-group hideSingleSelectionIndicator value="blog" (change)="changeTab($event.value)">
+                <mat-button-toggle value="student">
+                    <mat-icon fontIcon="school" />
+                </mat-button-toggle>
+                <mat-button-toggle value="blog">
+                    <mat-icon fontIcon="rss_feed" />
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        <span>Olá, {{ school.name }}</span>
+        <span class="profile"></span>
+    </div>
+</header>
+
+<main>
+    <div class="container-thumbnails">
+        @for (thumbnail of filterThumbnails; track $index) {
+            <div class="thumbnail">
+                <div class="left">
+                    <span class="assessment">
+                        <mat-icon fontIcon="star" />
+                        {{ thumbnail.assessment | number:'1.1-1' }}
+                    </span>
+                    <span class="title">{{ thumbnail.title }}</span>
+                </div>
+                <span class="date">{{ thumbnail.date | date }}</span>
+            </div>
+        } @empty {
+            <div class="empty-search">Nenhum post encontrado :/</div>
+        }
+    </div>
+
+    <button mat-flat-button class="btn-add-post" (click)="newPost()">
+        <mat-icon fontIcon="add" />
+        <span>Adiconar post</span>
+    </button>
+</main>

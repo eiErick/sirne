@@ -1,0 +1,14 @@
+:host {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    cursor: pointer;
+}
+
+span {
+    font-weight: 600;
+}
+
+mat-icon {
+    cursor: pointer;
+}

@@ -1,0 +1,13 @@
+h2 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+
+    .row {
+        display: flex;
+        gap: 22px;
+    }
+}

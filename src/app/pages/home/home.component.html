@@ -1,0 +1,67 @@
+<header>
+    <div class="left">
+        <span>Sirne</span>
+    </div>
+    <div class="center">
+        <mat-icon fontIcon="search" />
+        <input type="search" [(ngModel)]="searchTerm" (input)="search(searchTerm)" placeholder="Digite o nome do aluno...">
+    </div>
+    <div class="right">
+        <div class="menu">
+            <mat-button-toggle-group hideSingleSelectionIndicator value="student" (change)="changeTab($event.value)">
+                <mat-button-toggle value="student">
+                    <mat-icon fontIcon="school" />
+                </mat-button-toggle>
+                <mat-button-toggle value="blog">
+                    <mat-icon fontIcon="rss_feed" />
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+        <span>Olá, {{ school.name }}</span>
+        <span class="profile"></span>
+    </div>
+</header>
+
+<main>
+    <div class="container-students">
+        <mat-button-toggle-group class="filter-type" [(ngModel)]="filterType" hideSingleSelectionIndicator>
+            <mat-button-toggle value="room">Sala</mat-button-toggle>
+            <mat-button-toggle value="student">Estudante</mat-button-toggle>
+        </mat-button-toggle-group>
+
+        @if (filterType === 'room') {
+            <mat-accordion class="example-headers-align" >
+                @for (room of studentsOrganizedByRoom; track $index) {
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>Sala {{ room.room < 10 ? '0' + room.room : room.room }}</mat-panel-title>
+                        </mat-expansion-panel-header>
+                        
+                        @for (student of room.students; track $index) {
+                            <div class="container-student">
+                                <span>{{ student.name }}</span>
+                                <mat-icon fontIcon="edit_square" (click)="editStudent(student)" />
+                            </div>
+                        }
+                    </mat-expansion-panel>
+                } @empty {
+                    <div class="empty-search">Nenhuma sala encontrada :/</div>
+                }
+            </mat-accordion>
+        } @else if (filterType === 'student') {
+            @for (student of filteredStudents; track $index) {
+                <div class="container-student">
+                    <span>{{ student.name }}</span>
+                    <mat-icon fontIcon="edit_square" (click)="editStudent(student)" />
+                </div>
+            } @empty {
+                <div class="empty-search">Nenhum aluno encontrado :/</div>
+            }
+        }
+    </div>
+
+    <button mat-flat-button class="btn-add-student" (click)="openDialogCreateStudent()">
+        <mat-icon fontIcon="add" />
+        <span>Adiconar aluno</span>
+    </button>
+</main>

@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{ post.title }}</h2>
+<mat-dialog-content>
+    <mat-slide-toggle hideIcon [(ngModel)]="temporaryPost">Ativar post temporário</mat-slide-toggle>
+    @if (temporaryPost) {
+        <mat-form-field appearance="outline">
+            <mat-label>Data final</mat-label>
+            <input matInput type="date">
+        </mat-form-field>
+    }
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close (click)="cancel()">Cancelar</button>
+    <button mat-flat-button [mat-dialog-close]="publish()" >Publicar</button>
+</mat-dialog-actions>

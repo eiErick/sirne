@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>Adiconar Aluno</h2>
+<mat-dialog-content>
+    <form #studentForm="ngForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput [(ngModel)]="student.name" name="name" #name required type="text">
+        </mat-form-field>
+
+        <!-- <div class="row"> -->
+            <mat-form-field appearance="outline">
+                <mat-label>Sala</mat-label>
+                <input matInput [(ngModel)]="student.room" name="room" #room required type="number">
+            </mat-form-field>
+            
+            <!-- @if (school.technique) {
+                <mat-form-field appearance="outline">
+                    <mat-label>Curso</mat-label>
+                    <mat-select>
+                        
+                    </mat-select>
+                </mat-form-field>
+            } -->
+        <!-- </div> -->
+
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Turno</mat-label>
+                <mat-select [(ngModel)]="student.shift" [value]="student.shift" name="shift" #shift required>
+                    <mat-option value="matutino">Matutino</mat-option>
+                    <mat-option value="vespertino">Vespertino</mat-option>
+                    <mat-option value="noturno">Noturno</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Turma</mat-label>
+                <input matInput [(ngModel)]="student.class" name="class" #class required type="text">
+            </mat-form-field>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close (click)="cancel()">Cancelar</button>
+    <button mat-flat-button [disabled]="studentForm.invalid" [mat-dialog-close]="saveStudent()">Adiconar aluno</button>
+</mat-dialog-actions>

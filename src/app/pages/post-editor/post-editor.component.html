@@ -1,0 +1,18 @@
+<header>
+    <div class="left">
+        <span (click)="backHome()">Sirne</span>
+    </div>
+    <div class="center">
+
+    </div>
+    <div class="right">
+        <button [disabled]="postForm.invalid" mat-flat-button (click)="openDialogPublish()">Publicar</button>
+    </div>
+</header>
+
+<main>
+    <form #postForm="ngForm" class="container-editor">
+        <input class="editor-title" [(ngModel)]="post.title" name="title" #title required type="text" placeholder="Título">
+        <textarea class="editor" [(ngModel)]="post.blog" name="blog" #blog required placeholder="Escreva seu post aqui..."></textarea>
+    </form>
+</main>
