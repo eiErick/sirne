@@ -2,7 +2,7 @@ export interface Thumbnail {
     title: string;
     date: Date;
     assessment: number;
-    code: number;
+    code: string;
 }
 
 export interface Post extends Thumbnail {
