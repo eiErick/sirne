@@ -5,7 +5,7 @@ import * as CryptoJS from 'crypto-js';
   providedIn: 'root'
 })
 export class LocalstorageService {
-  public save(key: string, value: string) {
+  public save(key: string, value: any) {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
