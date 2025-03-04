@@ -10,5 +10,5 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'student', component: StudentComponent },
     { path: 'blog', component: BlogComponent },
-    { path: 'post', component: PostEditorComponent }
+    { path: 'post-editor', component: PostEditorComponent }
 ];
