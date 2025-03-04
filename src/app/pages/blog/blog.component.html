@@ -24,7 +24,7 @@
 
 <main>
     <div class="container-thumbnails">
-        @for (thumbnail of filterThumbnails; track $index) {
+        @for (thumbnail of filterThumbnails(); track $index) {
             <div class="thumbnail">
                 <div class="left">
                     <span class="assessment">

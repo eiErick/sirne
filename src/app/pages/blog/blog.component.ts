@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { School } from '../../models/school';
 import { Thumbnail } from '../../models/blog';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { MatButton } from '@angular/material/button';
@@ -28,20 +27,20 @@ import { SchoolService } from '../../services/school.service';
 export class BlogComponent {
   public searchTerm: string = '';
   
-  public thumbnails: Thumbnail[] = [];
-  public filterThumbnails: Thumbnail[] = [];
+  public posts = computed(() => this.blogService.posts());
+  public thumbnails = computed(() => this.blogService.thumbnails());
+  public filterThumbnails = signal<Thumbnail[]>([]);
 
   constructor (
     public school: SchoolService,
+    private blogService: BlogService,
     private navigate: NavigateService,
-    private blog: BlogService,
   ) {
-    this.thumbnails = [ ...this.blog.thumbnails ];
-    this.filterThumbnails = [ ...this.blog.thumbnails ];
+    effect(() => this.search(this.searchTerm));
   }
 
   public search(term: string) {
-    this.filterThumbnails = [ ...this.thumbnails.filter((thumbnail) => thumbnail.title.toLowerCase().includes(term.toLowerCase())) ];
+    this.filterThumbnails.update(() => [ ...this.thumbnails().filter((thumbnail) => thumbnail.title.toLowerCase().includes(term.toLowerCase())) ]);
   }
 
   public newPost() {
