@@ -19,7 +19,7 @@ export class NavigateService {
   }
 
   public post() {
-    this.router.navigate(['post']);
+    this.router.navigate(['post-editor']);
   }
 
   public student(student: Student) {    
