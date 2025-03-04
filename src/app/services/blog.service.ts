@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Post, Thumbnail } from '../models/blog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -8,8 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class BlogService {
   private snackBar = inject(MatSnackBar);
 
-  public posts: Post[] = [];
-  public thumbnails: Thumbnail[] = [];
+  public posts = signal<Post[]>([]);
+  public thumbnails = signal<Thumbnail[]>([]);
 
   constructor() {
     this.loadPosts();
@@ -19,23 +19,18 @@ export class BlogService {
   private loadPosts() {
     const postsSaved = localStorage.getItem('posts');
 
-    if (postsSaved) this.posts = JSON.parse(postsSaved) as Post[];
+    if (postsSaved) this.posts.set(JSON.parse(postsSaved) as Post[]);
   }
 
   private loadThumbnails() {
-    this.posts.forEach((item) => {
-      this.thumbnails.push({
-        assessment: item.assessment,
-        code: item.code,
-        date: item.date,
-        title: item.title,
-      });
+    this.posts().forEach((item) => {
+      this.thumbnails.update(thumbnail => [ ...thumbnail, { assessment: item.assessment, code: item.code, date: item.date, title: item.title }]);
     });
   }
 
   public savePost(post: Post) {
     post.code = this.makeID();
-    this.posts.push(post);
+    this.posts.update(posts => [ ...posts, post ]);
     localStorage.setItem('posts', JSON.stringify(this.posts));
     this.snackBar.open('Seu post foi salvo com sucesso!', 'Ok');
   }
@@ -45,9 +40,9 @@ export class BlogService {
   }
 
   public deletePost(code: number) {
-    this.posts.forEach((post, index) => {
+    this.posts().forEach((post, index) => {
       if (post.code === code) {
-        this.posts.splice(index, 1);
+        this.posts.update(posts => posts.filter((item, i) => i !== index));
         this.saveAllPosts();
       }
     });
