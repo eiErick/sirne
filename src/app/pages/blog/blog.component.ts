@@ -9,6 +9,7 @@ import { DatePipe, DecimalPipe } from '@angular/common';
 import { MatButton } from '@angular/material/button';
 import { NavigateService } from '../../services/navigate.service';
 import { BlogService } from '../../services/blog.service';
+import { SchoolService } from '../../services/school.service';
 
 @Component({
   selector: 'app-blog',
@@ -27,16 +28,14 @@ import { BlogService } from '../../services/blog.service';
 export class BlogComponent {
   public searchTerm: string = '';
   
-  public school: School;
   public thumbnails: Thumbnail[] = [];
   public filterThumbnails: Thumbnail[] = [];
 
   constructor (
+    public school: SchoolService,
     private navigate: NavigateService,
     private blog: BlogService,
   ) {
-    this.school = { name: 'ESCOLA', SIE: '123', technique: true, unity: 3 };
-
     this.thumbnails = [ ...this.blog.thumbnails ];
     this.filterThumbnails = [ ...this.blog.thumbnails ];
   }

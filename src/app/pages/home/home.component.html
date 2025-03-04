@@ -17,8 +17,10 @@
                 </mat-button-toggle>
             </mat-button-toggle-group>
         </div>
-        <span>Olá, {{ school.name }}</span>
-        <span class="profile"></span>
+        @if (schoolSer.school().name !== '') {
+            <span>Olá, {{ schoolSer.school().name }}</span>
+            <span class="profile"></span>
+        }
     </div>
 </header>
 

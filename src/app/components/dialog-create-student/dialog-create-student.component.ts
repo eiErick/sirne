@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Student } from '../../models/student';
 import { School } from '../../models/school';
 import { MatSelectModule } from '@angular/material/select';
+import { SchoolService } from '../../services/school.service';
 
 @Component({
   selector: 'app-dialog-create-student',
@@ -26,12 +27,10 @@ export class DialogCreateStudentComponent {
 
   public student: Student = { name: '', class: '', course: { id: '', name: '' }, room: 0, shift: 'matutino', siu: '' };
   public saveStudent = model(this.student);
-
-  public school: School;
   
-  constructor() {
-    this.school = { name: 'ESCOLA', SIE: '123', technique: true, unity: 3 }
-  }
+  constructor(
+    public school: SchoolService,
+  ) {}
 
   public cancel() {
     this.dialogRef.close();

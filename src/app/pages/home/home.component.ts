@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateStudentComponent } from '../../components/dialog-create-student/dialog-create-student.component';
 import { StudentService } from '../../services/student.service';
+import { SchoolService } from '../../services/school.service';
 
 @Component({
   selector: 'app-home',
@@ -32,7 +33,6 @@ export class HomeComponent implements OnInit {
   public searchTerm: string = '';
   public filterType: 'room' | 'student' = 'room';
 
-  public school: School;
   public students: Student[] = [];
   public filteredStudents: Student[] = [];
   public studentsOrganizedByRoom: GroupedRoom[] = [];
@@ -42,9 +42,8 @@ export class HomeComponent implements OnInit {
   constructor (
     private navigate: NavigateService,
     private student: StudentService,
-  ) {
-    this.school = { name: 'ESCOLA', SIE: '123', technique: true, unity: 3 }
-  }
+    public schoolSer: SchoolService
+  ) {}
   
   ngOnInit(): void {
     this.students = [ ...this.student.students ];
