@@ -31,8 +31,10 @@ export class BlogService {
   }
 
   public savePost(post: Post) {
-    post.code = this.makeID();
-    this.posts.update(posts => [ ...posts, post ]);
+    post.code = this.makeID().toString();
+    this.posts.update(posts => [ post, ...posts ]);
+    post.code = this.makeID().toString();
+    
     this.saveAllPosts();
     this.snackBar.open('Seu post foi salvo com sucesso!', 'Ok');
   }
