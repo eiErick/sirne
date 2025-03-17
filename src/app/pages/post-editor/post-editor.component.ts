@@ -29,7 +29,7 @@ export class PostEditorComponent {
     private navigate: NavigateService,
     private blog: BlogService,
   ) {
-    this.post = { title: '', assessment: 0, blog: '', code: 0, date: new Date(), endDate: null }
+    this.post = { title: '', assessment: 0, blog: '', code: '', date: new Date(), endDate: null }
   }
 
   public openDialogPublish() {
@@ -48,5 +48,9 @@ export class PostEditorComponent {
 
   public backHome() {
     this.navigate.home();
+  }
+
+  public makeID(): string {
+    return (Date.now().toString(36) + Math.random().toString(36).substr(2, 5));
   }
 }

@@ -9,6 +9,8 @@ import { MatButton } from '@angular/material/button';
 import { NavigateService } from '../../services/navigate.service';
 import { BlogService } from '../../services/blog.service';
 import { SchoolService } from '../../services/school.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PostDialogComponent } from '../../components/post-dialog/post-dialog.component';
 
 @Component({
   selector: 'app-blog',
@@ -35,6 +37,7 @@ export class BlogComponent {
     public school: SchoolService,
     private blogService: BlogService,
     private navigate: NavigateService,
+    private dialog: MatDialog,
   ) {
     effect(() => this.search(this.searchTerm));
   }
@@ -45,6 +48,16 @@ export class BlogComponent {
 
   public newPost() {
     this.navigate.post();
+  }
+
+  public openPost(code: string) {
+    const post = this.posts().find((post) => post.code === code);
+
+    if (post) {
+      this.dialog.open(PostDialogComponent, {
+        data: post,
+      });
+    }
   }
 
   public changeTab(menu: 'blog' | 'student') {

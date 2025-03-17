@@ -25,7 +25,7 @@
 <main>
     <div class="container-thumbnails">
         @for (thumbnail of filterThumbnails(); track $index) {
-            <div class="thumbnail">
+            <div class="thumbnail" (click)="openPost(thumbnail.code)">
                 <div class="left">
                     <span class="assessment">
                         <mat-icon fontIcon="star" />
