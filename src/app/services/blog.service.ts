@@ -42,7 +42,7 @@ export class BlogService {
     this.loadThumbnails();
   }
 
-  public deletePost(code: number) {
+  public deletePost(code: string) {
     this.posts().forEach((post, index) => {
       if (post.code === code) {
         this.posts.update(posts => posts.filter((item, i) => i !== index));
