@@ -27,6 +27,15 @@ export class StudentService {
     localStorage.setItem('students', JSON.stringify(this.students));
   }
 
+  public editStudent(siu: string, studentAtualizado: Student) {
+    this.students.forEach((student, index) => {
+      if (student.siu === siu) {
+        this.students[index] = { ...studentAtualizado };
+        this.saveAllStudents();
+      }
+    });    
+  }
+
   public deletePost(siu: string) {
     this.students.forEach((student, index) => {
       if (student.siu === siu) {
