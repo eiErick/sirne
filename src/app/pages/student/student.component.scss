@@ -45,17 +45,14 @@ main {
     width: 100%;
     justify-content: center;
 
-    mat-form-field {
-        width: 100%;
+    h3 {
+        width: 50%;
+        margin-bottom: 20px;
+        text-align: left;
     }
 
-    app-suspended {
-        width: 50%;
-        margin-bottom: 15px;
-        background-color: #eeeeee;
-        padding: 10px;
-        border: 1px solid var(--gray);
-        border-radius: 4px;
+    mat-form-field {
+        width: 100%;
     }
 
     form {

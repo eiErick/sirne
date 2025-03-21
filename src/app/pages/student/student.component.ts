@@ -6,8 +6,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select'
-import { SuspendedComponent } from "../../components/suspended/suspended.component";
 import { NavigateService } from '../../services/navigate.service';
+import { StudentService } from '../../services/student.service';
 
 @Component({
   selector: 'app-student',
@@ -18,7 +18,6 @@ import { NavigateService } from '../../services/navigate.service';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    SuspendedComponent
   ],
   templateUrl: './student.component.html',
   styleUrl: './student.component.scss'
@@ -31,6 +30,7 @@ export class StudentComponent {
 
   constructor (
     private navigate: NavigateService,
+    private studentService: StudentService
   ) {
     this.student = history.state;
   }
@@ -40,6 +40,8 @@ export class StudentComponent {
   }
 
   public confirm(form: NgForm) {
-    console.log(form.value)
+    if (form.valid) {
+      this.studentService.editStudent(this.student.siu, this.student);
+    }
   }
 }
