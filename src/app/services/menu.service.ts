@@ -76,11 +76,23 @@ export class MenuService {
     }
   }
 
+  public updateSnacks(snack: Snack) {    
+    this.snacks.update(snacks => snacks.map(s => s.id === snack.id ? { ...snack } : s));
+    this.saveMeals();
+  }
+
+  public updateLunch(lunch: Lunch) {
+    this.lunches.update(lunches => lunches.map(l => l.id === lunch.id ? { ...lunch } : l));
+    this.saveMeals();
+  }
+
   public changeMenu(newMenuDay: Menu) {
     this.menu.update(menu => menu.map(m => m.id === newMenuDay.id ? { ...newMenuDay } : m));
     this.saveMenu();
   }
 
+  public deleteLuch(lunch: Lunch) {
+    this.lunches().forEach((l, index) => {
   private saveMenu() {
     this.localstorageService.save('menu', this.menu());
   }
