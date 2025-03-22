@@ -35,7 +35,7 @@
                     <span class="description">ALMOÇO</span>
                     <mat-form-field appearance="outline">
                         <mat-label>Almoço</mat-label>
-                        <mat-select [(ngModel)]="menu.idLunch" name="lunch" (valueChange)="changeMeal(menu, 'lunch', menu.id)">
+                        <mat-select [(ngModel)]="menu.idLunch" name="lunch" (valueChange)="changeMeal(menu, 'lunch', $event)">
                             @for (lunch of lunches(); track $index) {
                                 <mat-option value="{{ lunch.id }}">{{ lunch.name }}</mat-option>
                             }
