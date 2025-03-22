@@ -1,0 +1,57 @@
+<header>
+    <div class="left">
+        <span>Sirne</span>
+    </div>
+    <div class="right">
+        <div class="menu">
+            <app-nav-bar valueDefault="menu" />
+        </div>
+        @if (schoolService.school().name !== '') {
+            <span>Olá, {{ schoolService.school().name }}</span>
+            <span class="profile"></span>
+        }
+    </div>
+</header>
+
+<main>
+    <div class="container-menu-card">
+        @for (menu of menus(); track $index) {
+            <div class="menu-card">
+                <span class="day">{{ menu.day | uppercase }}</span>
+
+                <div class="snack">
+                    <span class="description">MERENDA</span>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Merenda</mat-label>
+                        <mat-select [(ngModel)]="menu.idSnack" name="snack" (valueChange)="changeMeal(menu, 'snack', $event)">
+                            @for (snack of snacks(); track $index) {
+                                <mat-option value="{{ snack.id }}">{{ snack.name }}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="lunch">
+                    <span class="description">ALMOÇO</span>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Almoço</mat-label>
+                        <mat-select [(ngModel)]="menu.idLunch" name="lunch" (valueChange)="changeMeal(menu, 'lunch', menu.id)">
+                            @for (lunch of lunches(); track $index) {
+                                <mat-option value="{{ lunch.id }}">{{ lunch.name }}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="btns">
+                    <mat-icon fontIcon="info" />
+                </div>
+            </div>
+        }
+    </div>
+
+    <button mat-flat-button class="btn-add-meal" (click)="openDialogCreateMeal()">
+        <mat-icon fontIcon="add" />
+        <span>Adicionar Refeição</span>
+    </button>
+</main>

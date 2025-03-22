@@ -27,6 +27,8 @@ export class NavBarComponent {
       case 'student':
         this.navigateService.home();
         break;
+      case 'menu':
+        this.navigateService.menu();
     }
   }
 }

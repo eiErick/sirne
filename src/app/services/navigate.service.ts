@@ -18,6 +18,10 @@ export class NavigateService {
     this.router.navigate(['blog']);
   }
 
+  public menu() {
+    this.router.navigate(['menu'])
+  }
+
   public post() {
     this.router.navigate(['post-editor']);
   }
