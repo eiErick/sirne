@@ -11,6 +11,7 @@ import { BlogService } from '../../services/blog.service';
 import { SchoolService } from '../../services/school.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PostDialogComponent } from '../../components/post-dialog/post-dialog.component';
+import { NavBarComponent } from "../../components/nav-bar/nav-bar.component";
 
 @Component({
   selector: 'app-blog',
@@ -21,8 +22,9 @@ import { PostDialogComponent } from '../../components/post-dialog/post-dialog.co
     MatButtonToggleModule,
     DatePipe,
     MatButton,
-    DecimalPipe
-  ],
+    DecimalPipe,
+    NavBarComponent
+],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.scss'
 })
@@ -58,10 +60,5 @@ export class BlogComponent {
         data: post,
       });
     }
-  }
-
-  public changeTab(menu: 'blog' | 'student') {
-    if (menu === 'blog') this.navigate.blog();
-    else this.navigate.home();
   }
 }

@@ -8,14 +8,7 @@
     </div>
     <div class="right">
         <div class="menu">
-            <mat-button-toggle-group hideSingleSelectionIndicator value="student" (change)="changeTab($event.value)">
-                <mat-button-toggle value="student">
-                    <mat-icon fontIcon="school" />
-                </mat-button-toggle>
-                <mat-button-toggle value="blog">
-                    <mat-icon fontIcon="rss_feed" />
-                </mat-button-toggle>
-            </mat-button-toggle-group>
+            <app-nav-bar valueDefault="student" />
         </div>
         @if (schoolSer.school().name !== '') {
             <span>Olá, {{ schoolSer.school().name }}</span>

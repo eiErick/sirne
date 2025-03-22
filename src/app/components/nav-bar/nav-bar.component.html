@@ -1,0 +1,13 @@
+<mat-button-toggle-group hideSingleSelectionIndicator [value]="valueDefault()" (change)="changeTab($event.value)">
+    <mat-button-toggle value="student">
+        <mat-icon fontIcon="school" />
+    </mat-button-toggle>
+
+    <mat-button-toggle value="blog">
+        <mat-icon fontIcon="rss_feed" />
+    </mat-button-toggle>
+
+    <mat-button-toggle value="menu">
+        <mat-icon fontIcon="restaurant"/>
+    </mat-button-toggle>
+</mat-button-toggle-group>

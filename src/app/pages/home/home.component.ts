@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateStudentComponent } from '../../components/dialog-create-student/dialog-create-student.component';
 import { StudentService } from '../../services/student.service';
 import { SchoolService } from '../../services/school.service';
+import { NavBarComponent } from "../../components/nav-bar/nav-bar.component";
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ import { SchoolService } from '../../services/school.service';
     MatButtonToggleModule,
     MatButtonToggleModule,
     MatButtonModule,
-  ],
+    NavBarComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -84,10 +86,5 @@ export class HomeComponent implements OnInit {
       this.filteredStudents.push(result);
       this.studentsOrganizedByRoom = this.getStudentsGroupedByRoom();
     });
-  }
-
-  public changeTab(menu: 'blog' | 'student') {
-    if (menu === 'blog') this.navigate.blog();
-    else this.navigate.home();
   }
 }
