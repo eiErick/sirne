@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Confirmar Deletação</h2>
+<mat-dialog-content>
+    <span>Você tem certeza que deseja deletar "{{ itemDeleting }}"?</span>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="cancel()">Cancelar</button>
+    <button class="delete-btn" mat-flat-button (click)="confirm()">Deletar</button>
+</mat-dialog-actions>
