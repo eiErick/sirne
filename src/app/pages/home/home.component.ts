@@ -24,7 +24,6 @@ import { NavBarComponent } from "../../components/nav-bar/nav-bar.component";
     MatInputModule,
     MatExpansionModule,
     MatButtonToggleModule,
-    MatButtonToggleModule,
     MatButtonModule,
     NavBarComponent
 ],
