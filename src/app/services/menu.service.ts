@@ -93,6 +93,22 @@ export class MenuService {
 
   public deleteLuch(lunch: Lunch) {
     this.lunches().forEach((l, index) => {
+      if (l.id === lunch.id) {
+        this.lunches.update(lunches => lunches.filter((item, i) => i !== index));
+        this.saveMeals();
+      }
+    });
+  }
+
+  public deleteSnack(snack: Snack) {
+    this.snacks().forEach((s, index) => {
+      if (s.id === snack.id) {
+        this.snacks.update(snacks => snacks.filter((item, i) => i !== index));
+        this.saveMeals();
+      }
+    });
+  }
+
   private saveMenu() {
     this.localstorageService.save('menu', this.menu());
   }
