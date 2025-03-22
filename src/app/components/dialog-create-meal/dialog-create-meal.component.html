@@ -11,30 +11,30 @@
         <form #snackForm="ngForm">
             <mat-form-field appearance="outline">
                 <mat-label>Nome</mat-label>
-                <input [(ngModel)]="snack.name" name="name" matInput type="text">
+                <input [(ngModel)]="meal.snack.name" name="name" matInput type="text">
             </mat-form-field>
             
             <mat-form-field appearance="outline">
                 <mat-label>Calorias</mat-label>
-                <input [(ngModel)]="snack.calories" name="calories" matInput type="number">
+                <input [(ngModel)]="meal.snack.calories" name="calories" matInput type="number">
             </mat-form-field>
             
-            <mat-slide-toggle hideIcon [(ngModel)]="snack.gluten" name="gluten">Glúten</mat-slide-toggle>
-            <mat-slide-toggle hideIcon [(ngModel)]="snack.lactose" name="lactose">Lactose</mat-slide-toggle>
+            <mat-slide-toggle hideIcon [(ngModel)]="meal.snack.gluten" name="gluten">Glúten</mat-slide-toggle>
+            <mat-slide-toggle hideIcon [(ngModel)]="meal.snack.lactose" name="lactose">Lactose</mat-slide-toggle>
         </form>
     } @else {
         <form #lunchForm="ngForm">
             <mat-form-field appearance="outline">
                 <mat-label>Nome</mat-label>
-                <input [(ngModel)]="lunch.name" name="name" matInput type="text">
+                <input [(ngModel)]="meal.lunch.name" name="name" matInput type="text">
             </mat-form-field>
             
             <mat-form-field appearance="outline">
                 <mat-label>Calorias</mat-label>
-                <input [(ngModel)]="lunch.calories" name="calories" matInput type="number">
+                <input [(ngModel)]="meal.lunch.calories" name="calories" matInput type="number">
             </mat-form-field>
             
-            <mat-slide-toggle hideIcon [(ngModel)]="lunch.gluten" name="gluten">Glúten</mat-slide-toggle>
+            <mat-slide-toggle hideIcon [(ngModel)]="meal.lunch.gluten" name="gluten">Glúten</mat-slide-toggle>
         </form>
     }
 </mat-dialog-content>

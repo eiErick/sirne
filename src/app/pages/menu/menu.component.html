@@ -14,41 +14,88 @@
 </header>
 
 <main>
-    <div class="container-menu-card">
-        @for (menu of menus(); track $index) {
-            <div class="menu-card">
-                <span class="day">{{ menu.day | uppercase }}</span>
+    <mat-button-toggle-group class="select" [(ngModel)]="select" hideSingleSelectionIndicator>
+        <mat-button-toggle value="menu">Cardápio</mat-button-toggle>
+        <mat-button-toggle value="satabase">Banco de dados</mat-button-toggle>
+    </mat-button-toggle-group>
 
-                <div class="snack">
-                    <span class="description">MERENDA</span>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Merenda</mat-label>
-                        <mat-select [(ngModel)]="menu.idSnack" name="snack" (valueChange)="changeMeal(menu, 'snack', $event)">
-                            @for (snack of snacks(); track $index) {
-                                <mat-option value="{{ snack.id }}">{{ snack.name }}</mat-option>
-                            }
-                        </mat-select>
-                    </mat-form-field>
-                </div>
+    @if (select === 'menu') {
+        <div class="container-menu-card">
+            @for (menu of menus(); track $index) {
+                <div class="menu-card">
+                    <span class="day">{{ menu.day | uppercase }}</span>
 
-                <div class="lunch">
-                    <span class="description">ALMOÇO</span>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Almoço</mat-label>
-                        <mat-select [(ngModel)]="menu.idLunch" name="lunch" (valueChange)="changeMeal(menu, 'lunch', $event)">
-                            @for (lunch of lunches(); track $index) {
-                                <mat-option value="{{ lunch.id }}">{{ lunch.name }}</mat-option>
-                            }
-                        </mat-select>
-                    </mat-form-field>
-                </div>
+                    <div class="snack">
+                        <span class="description">MERENDA</span>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Merenda</mat-label>
+                            <mat-select [(ngModel)]="menu.idSnack" name="snack" (valueChange)="changeMeal(menu, 'snack', $event)">
+                                @for (snack of snacks(); track $index) {
+                                    <mat-option value="{{ snack.id }}">{{ snack.name }}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
 
-                <div class="btns">
-                    <mat-icon fontIcon="info" />
+                    <div class="lunch">
+                        <span class="description">ALMOÇO</span>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Almoço</mat-label>
+                            <mat-select [(ngModel)]="menu.idLunch" name="lunch" (valueChange)="changeMeal(menu, 'lunch', $event)">
+                                @for (lunch of lunches(); track $index) {
+                                    <mat-option value="{{ lunch.id }}">{{ lunch.name }}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="btns">
+                        <mat-icon fontIcon="info" />
+                    </div>
                 </div>
+            }
+        </div>
+    } @else {
+        <mat-form-field appearance="outline" class="database-type">
+            <mat-label>Dados</mat-label>
+            <mat-select [(ngModel)]="databaseType">
+                <mat-option value="snack">Merendas</mat-option>
+                <mat-option value="lunch">Almoços</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        @if (databaseType === 'snack') {
+            <div class="database-description">
+                <h3>Merendas</h3>
+            </div>
+            <div class="container-snacks">
+                @for (snack of snacks(); track $index) {
+                    <div class="snack">
+                        <span>{{ snack.name }}</span>
+                        <div class="actions">
+                            <mat-icon fontIcon="edit" (click)="editSnack(snack)" />
+                            <mat-icon fontIcon="delete" (click)="deleteSnack(snack)" />
+                        </div>
+                    </div>
+                }
+            </div>
+        } @else {
+            <div class="database-description">
+                <h3>Almoços</h3>
+            </div>
+            <div class="container-lunches">
+                @for (lunch of lunches(); track $index) {
+                    <div class="lunch">
+                        <span>{{ lunch.name }}</span>
+                        <div class="actions">
+                            <mat-icon fontIcon="edit" (click)="editLunch(lunch)" />
+                            <mat-icon fontIcon="delete" (click)="deleteLunch(lunch)" />
+                        </div>
+                    </div>
+                }
             </div>
         }
-    </div>
+    }
 
     <button mat-flat-button class="btn-add-meal" (click)="openDialogCreateMeal()">
         <mat-icon fontIcon="add" />

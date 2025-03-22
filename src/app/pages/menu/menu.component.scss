@@ -38,7 +38,17 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
+    .select {
+        border-radius: 4px;
+        margin-bottom: 20px;
+        width: 250px;
+
+        mat-button-toggle {
+            width: 100%;
+        }
+    }
+
     .container-menu-card {
         display: flex;
         justify-content: center;
@@ -92,6 +102,55 @@ main {
                     color: #005CBB;
                 }
             }
+        }        
+    }
+
+    .database-type {
+        width: 300px;
+    }
+
+    .database-description {
+        width: 50%;
+        display: flex;
+        justify-content: start;
+        margin-bottom: 15px;
+        
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+        }
+    }
+
+    .container-snacks, .container-lunches {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+        border: 1px solid var(--gray);
+        border-radius: 10px;
+
+
+        .snack, .lunch {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 5px;
+
+            span {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .actions {
+                display: flex;
+                gap: 10px;
+
+                mat-icon {
+                    cursor: pointer;
+                }
+            }
+
         }
     }
 

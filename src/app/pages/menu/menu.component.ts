@@ -10,7 +10,11 @@ import { MenuService } from '../../services/menu.service';
 import { UpperCasePipe } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Menu } from '../../models/menu';
+import { Lunch, Menu, Snack } from '../../models/menu';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatListModule } from '@angular/material/list';
+import { DialogConfirmDeleteComponent } from '../../components/dialog-confirm-delete/dialog-confirm-delete.component';
+import { MealDialogOpen } from '../../components/dialog-create-meal/dialog-create-meal.component';
 
 @Component({
   selector: 'app-menu',
@@ -21,7 +25,9 @@ import { Menu } from '../../models/menu';
     NavBarComponent,
     UpperCasePipe,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatButtonToggleModule,
+    MatListModule
 ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
@@ -30,6 +36,9 @@ export class MenuComponent {
   public menus = computed(() => this.menuService.menu());
   public snacks = computed(() => this.menuService.snacks());
   public lunches = computed(() => this.menuService.lunches());
+
+  public select: 'menu' | 'database' = 'menu';
+  public databaseType: 'snack' | 'lunch' = 'snack';
 
   constructor (
     public schoolService: SchoolService,
@@ -51,7 +60,14 @@ export class MenuComponent {
   }
 
   public openDialogCreateMeal() {
-    const dialogRef = this.dialog.open(DialogCreateMealComponent);
+    const mealDialogOpen: MealDialogOpen = { 
+      snack: { name: '', calories: 0, gluten: false, lactose: false, id: '' },
+      lunch: { name: '', calories: 0, gluten: false, id: '' },
+    };
+
+    const dialogRef = this.dialog.open(DialogCreateMealComponent, {
+      data: mealDialogOpen,
+    });
 
     dialogRef.afterClosed().subscribe({
       next: (res) => {        
@@ -59,6 +75,62 @@ export class MenuComponent {
           this.menuService.addSnack(res.meal);
         } else {
           this.menuService.addLunch(res.meal);
+        }
+      }
+    });
+  }
+
+  public editSnack(snack: Snack) {
+    const mealDialogOpen: MealDialogOpen = { snack: { ...snack }, lunch: { name: '', calories: 0, gluten: false, id: '' }};
+
+    const dialogRef = this.dialog.open(DialogCreateMealComponent, {
+      data: mealDialogOpen,
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        this.menuService.updateSnacks(res.meal);
+      }
+    });
+  }
+
+  public editLunch(lunch: Lunch) {
+    const mealDialogOpen: MealDialogOpen = { lunch: { ...lunch }, snack: { name: '', calories: 0, gluten: false, lactose: false, id: '' }};
+
+    const dialogRef = this.dialog.open(DialogCreateMealComponent, {
+      data: mealDialogOpen,
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {        
+        this.menuService.updateLunch(res.meal);
+      }
+    });
+  }
+
+  public deleteSnack(snack: Snack) {
+    const dialogRef = this.dialog.open(DialogConfirmDeleteComponent, {
+      data: snack.name,
+    });
+    
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res === true) {
+          this.menuService.deleteSnack(snack);
+        }
+      }
+    });
+  }
+
+  public deleteLunch(lunch: Lunch) {
+    const dialogRef = this.dialog.open(DialogConfirmDeleteComponent, {
+      data: lunch.name,
+    });
+    
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res === true) {
+          this.menuService.deleteLuch(lunch);
         }
       }
     });
