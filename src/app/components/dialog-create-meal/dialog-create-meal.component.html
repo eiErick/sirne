@@ -11,35 +11,34 @@
         <form #snackForm="ngForm">
             <mat-form-field appearance="outline">
                 <mat-label>Nome</mat-label>
-                <input [(ngModel)]="snack.meal.name" name="name" matInput type="text">
+                <input [(ngModel)]="snack.name" name="name" matInput type="text">
             </mat-form-field>
             
             <mat-form-field appearance="outline">
                 <mat-label>Calorias</mat-label>
-                <input [(ngModel)]="snack.meal.calories" name="calories" matInput type="number">
+                <input [(ngModel)]="snack.calories" name="calories" matInput type="number">
             </mat-form-field>
             
-            <mat-slide-toggle hideIcon [(ngModel)]="snack.meal.gluten" name="gluten">Glúten</mat-slide-toggle>
-            
-            <mat-slide-toggle hideIcon [(ngModel)]="snack.meal" name="lactose">Lactose</mat-slide-toggle>
+            <mat-slide-toggle hideIcon [(ngModel)]="snack.gluten" name="gluten">Glúten</mat-slide-toggle>
+            <mat-slide-toggle hideIcon [(ngModel)]="snack.lactose" name="lactose">Lactose</mat-slide-toggle>
         </form>
     } @else {
         <form #lunchForm="ngForm">
             <mat-form-field appearance="outline">
                 <mat-label>Nome</mat-label>
-                <input [(ngModel)]="lunch.meal" name="name" matInput type="text">
+                <input [(ngModel)]="lunch.name" name="name" matInput type="text">
             </mat-form-field>
             
             <mat-form-field appearance="outline">
                 <mat-label>Calorias</mat-label>
-                <input [(ngModel)]="lunch.meal.calories" name="calories" matInput type="number">
+                <input [(ngModel)]="lunch.calories" name="calories" matInput type="number">
             </mat-form-field>
             
-            <mat-slide-toggle hideIcon [(ngModel)]="lunch.meal.gluten" name="gluten">Glúten</mat-slide-toggle>
+            <mat-slide-toggle hideIcon [(ngModel)]="lunch.gluten" name="gluten">Glúten</mat-slide-toggle>
         </form>
     }
 </mat-dialog-content>
 <mat-dialog-actions>
     <button mat-button (click)="cancel()">Cancelar</button>
-    <button mat-flat-button [mat-dialog-close]="saveMeal.get(select)">Adicionar</button>
+    <button mat-flat-button (click)="add()">Adicionar</button>
 </mat-dialog-actions>

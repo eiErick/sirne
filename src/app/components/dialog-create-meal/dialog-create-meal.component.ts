@@ -27,23 +27,22 @@ export class DialogCreateMealComponent {
   
   public select: 'snack' | 'lunch' = 'snack';
   
-  public snack: MealDialogClose = { type: 'snack', meal: { name: '', calories: 0, gluten: false, lactose: false, id: '' } };
-  public lunch: MealDialogClose = { type: 'lunch', meal: { name: '', calories: 0, gluten: false, id: '' } };
-
-  public saveMeal: Map<string, MealDialogClose>
+  public snack: Snack = { name: '', calories: 0, gluten: false, lactose: false, id: '' };
+  public lunch: Lunch = { name: '', calories: 0, gluten: false, id: ''};
 
   public saveLunch = model(this.lunch);
   public saveSnack = model(this.snack);
 
-  constructor () {
-    this.saveMeal = new Map<string, MealDialogClose>([
-      [ 'snack', this.snack ],
-      [ 'lunch', this.lunch ]
-    ])
-  }
-
   public cancel() {
     this.dialogRef.close();
+  }
+
+  public add() {
+    if (this.select === 'snack') {
+      this.dialogRef.close({ type: 'snack', meal: this.snack });
+    } else {
+      this.dialogRef.close({ type: 'lunch', meal: this.lunch });
+    }
   }
 }
 
