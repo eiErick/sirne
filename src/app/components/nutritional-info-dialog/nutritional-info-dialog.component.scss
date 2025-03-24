@@ -1,0 +1,30 @@
+h2 {
+    text-align: center;
+}
+
+mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    h4 {
+        color: #000000;
+        font-weight: 700;
+        font-size: 18px;
+    }
+
+    h5 {
+        color: #000000;
+        font-weight: 500;
+        font-size: 18px;
+    }
+
+    .allergy {
+        background-color: #786d1b;
+        color: #ffffff;
+        border-radius: 5px;
+        padding: 5px;
+    }
+}

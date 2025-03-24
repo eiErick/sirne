@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Nutrição</h2>
+<mat-dialog-content>
+    <h4>Merenda</h4>
+    <h5>Calorias</h5>
+    <span>{{ snack.calories }}</span>
+
+    @if (snack.lactose) {
+        <div class="allergy">Lactose</div>
+    }
+
+    @if (snack.gluten) {
+        <div class="allergy">Glúten</div>
+    }
+
+    <h4>Almoço</h4>
+    <h4>Calorias</h4>
+    <span>{{ lunch.calories }}</span>
+
+    @if (lunch.gluten) {
+        <div class="allergy">Glúten</div>
+    }
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-flat-button (click)="close()">Ok</button>
+</mat-dialog-actions>

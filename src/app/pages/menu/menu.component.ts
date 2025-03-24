@@ -15,6 +15,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatListModule } from '@angular/material/list';
 import { DialogConfirmDeleteComponent } from '../../components/dialog-confirm-delete/dialog-confirm-delete.component';
 import { MealDialogOpen } from '../../components/dialog-create-meal/dialog-create-meal.component';
+import { NutritionalInfoDialogComponent } from '../../components/nutritional-info-dialog/nutritional-info-dialog.component';
 
 @Component({
   selector: 'app-menu',
@@ -77,6 +78,12 @@ export class MenuComponent {
           this.menuService.addLunch(res.meal);
         }
       }
+    });
+  }
+
+  public openNutritionalInfoDialog(menu: Menu) {
+    const dialogRef = this.dialog.open(NutritionalInfoDialogComponent, {
+      data: menu,
     });
   }
 
