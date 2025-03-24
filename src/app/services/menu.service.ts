@@ -52,6 +52,14 @@ export class MenuService {
     }
   }
 
+  public getSnackId(id: string): Snack | undefined {
+    return this.snacks().find((snack) => snack.id === id);
+  }
+
+  public getLunchId(id: string): Lunch | undefined {
+    return this.lunches().find((lunch) => lunch.id === id);
+  }
+
   public addSnack(snack: Snack) {
     const snackFound = this.snacks().find((s) => s.name.toLowerCase() === snack.name.toLowerCase());
     
