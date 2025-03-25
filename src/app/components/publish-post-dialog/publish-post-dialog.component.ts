@@ -26,9 +26,27 @@ export class PublishPostDialogComponent {
   public post = inject<Post>(MAT_DIALOG_DATA);
   public publish = model(this.post);
 
+  public temporaryDate: Date = new Date();
   public temporaryPost: boolean = false;
+  public temporaryDateValid: boolean = true;
 
   constructor () {}
+
+  public setTemporaryDate() {
+    const currentDate: Date = new Date();
+    const selectedDate: Date = new Date(this.temporaryDate);
+
+    currentDate.setHours(0, 0, 0);
+    selectedDate.setHours(0, 0, 0);
+
+    if (selectedDate > currentDate) {
+      this.temporaryDateValid = true;
+      this.post.endDate = selectedDate;
+    } else {
+      this.temporaryDateValid = false;
+      this.post.endDate = null;
+    }    
+  }
 
   public cancel() {
     this.dialogRef.close();

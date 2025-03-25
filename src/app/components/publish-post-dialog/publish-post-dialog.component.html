@@ -4,11 +4,11 @@
     @if (temporaryPost) {
         <mat-form-field appearance="outline">
             <mat-label>Data final</mat-label>
-            <input matInput type="date">
+            <input [(ngModel)]="temporaryDate" matInput type="date" (change)="setTemporaryDate()">
         </mat-form-field>
     }
 </mat-dialog-content>
 <mat-dialog-actions>
     <button mat-button mat-dialog-close (click)="cancel()">Cancelar</button>
-    <button mat-flat-button [mat-dialog-close]="publish()" >Publicar</button>
+    <button mat-flat-button [mat-dialog-close]="publish()" [disabled]="!temporaryDateValid">Publicar</button>
 </mat-dialog-actions>
