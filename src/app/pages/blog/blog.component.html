@@ -18,15 +18,24 @@
 <main>
     <div class="container-thumbnails">
         @for (thumbnail of filterThumbnails(); track $index) {
-            <div class="thumbnail" (click)="openPost(thumbnail.code)">
-                <div class="left">
-                    <span class="assessment">
-                        <mat-icon fontIcon="star" />
-                        {{ thumbnail.assessment | number:'1.1-1' }}
-                    </span>
-                    <span class="title">{{ thumbnail.title }}</span>
+            <div class="container-thumbnail">
+                <div class="thumbnail" (click)="openPost(thumbnail.code)">
+                    <div class="left">
+                        <span class="assessment">
+                            <mat-icon fontIcon="star" />
+                            {{ thumbnail.assessment | number:'1.1-1' }}
+                        </span>
+                        <span class="title">{{ thumbnail.title }}</span>
+                    </div>
+                    <span class="date">{{ thumbnail.date | date }}</span>
                 </div>
-                <span class="date">{{ thumbnail.date | date }}</span>
+                <div class="actions" [matMenuTriggerFor]="menu">
+                    <mat-icon fontIcon="more_vert" />
+
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="deletePost(thumbnail)">Deletar</button>
+                    </mat-menu>
+                </div>
             </div>
         } @empty {
             <div class="empty-search">Nenhum post encontrado :/</div>

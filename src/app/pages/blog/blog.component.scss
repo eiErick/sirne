@@ -61,43 +61,67 @@ main {
         width: 50%;
         margin: auto;
 
-        .thumbnail {
+        .container-thumbnail {
             display: flex;
-            align-items: center;
-            padding: 10px;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            border: 1px solid var(--gray);
-            cursor: pointer;
-            background-color: #fafafa;
-            transition: .2s;
-            gap: 15px;
+            width: 100%;
 
-            .left {
+            .thumbnail {
+                width: 100%;
                 display: flex;
-                gap: 10px;
-                
-                .assessment {
+                align-items: center;
+                padding: 10px;
+                justify-content: space-between;
+                margin-bottom: 5px;
+                border-radius: 4px 0 0 4px;
+                border: 1px solid var(--gray);
+                border-right: none;
+                cursor: pointer;
+                background-color: #fafafa;
+                transition: .2s;
+                gap: 15px;
+
+                .left {
                     display: flex;
-                    align-items: center;
-                    gap: 5px;
+                    gap: 10px;
                     
-                    mat-icon {
-                        color: goldenrod;
+                    .assessment {
+                        display: flex;
+                        align-items: center;
+                        gap: 5px;
+                        
+                        mat-icon {
+                            color: goldenrod;
+                        }
+                    }
+                    
+                    .title {
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
                     }
                 }
-                
-                .title {
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    overflow: hidden;
-                }
             }
-        }
 
-        .thumbnail:hover {
-            background-color: #f1f1f1;
+            .thumbnail:hover {
+                background-color: #f1f1f1;
+            }
+
+            .actions {
+                margin-bottom: 10px;
+                background-color: #dddddd;
+                width: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 5px;
+                border-radius: 0 4px 4px 0;
+                border: 1px solid var(--gray);
+                border-left: none;
+                cursor: pointer;
+                transition: .2s;
+                gap: 15px;
+            }
+
         }
 
         .empty-search {

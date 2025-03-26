@@ -5,13 +5,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { Thumbnail } from '../../models/blog';
 import { DatePipe, DecimalPipe } from '@angular/common';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 import { NavigateService } from '../../services/navigate.service';
 import { BlogService } from '../../services/blog.service';
 import { SchoolService } from '../../services/school.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PostDialogComponent } from '../../components/post-dialog/post-dialog.component';
 import { NavBarComponent } from "../../components/nav-bar/nav-bar.component";
+import { DialogConfirmDeleteComponent } from '../../components/dialog-confirm-delete/dialog-confirm-delete.component';
 
 @Component({
   selector: 'app-blog',
@@ -23,7 +24,8 @@ import { NavBarComponent } from "../../components/nav-bar/nav-bar.component";
     DatePipe,
     MatButton,
     DecimalPipe,
-    NavBarComponent
+    NavBarComponent,
+    MatButtonModule
 ],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.scss'
@@ -50,6 +52,20 @@ export class BlogComponent {
 
   public newPost() {
     this.navigate.post();
+  }
+
+  public deletePost(thumbnail: Thumbnail) {
+    const dialogRef = this.dialog.open(DialogConfirmDeleteComponent, {
+      data: thumbnail.title
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (res) => {
+        if (res) {
+          this.blogService.deletePost(thumbnail.code);
+        }
+      }
+    })
   }
 
   public openPost(code: string) {
