@@ -10,9 +10,16 @@
         <div class="menu">
             <app-nav-bar valueDefault="student" />
         </div>
-        @if (schoolSer.school().name !== '') {
-            <span>Olá, {{ schoolSer.school().name }}</span>
-            <span class="profile"></span>
+        @if (schoolService.school().name !== '') {
+            <span>Olá, {{ schoolService.school().name }}</span>
+            <span class="profile" [matMenuTriggerFor]="menu"></span>
+
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="logout()">
+                    <mat-icon fontIcon="logout" />
+                    <span>Sair</span>
+                </button>
+            </mat-menu>
         }
     </div>
 </header>

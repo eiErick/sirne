@@ -3,6 +3,7 @@ import { School } from '../models/school';
 import { EncryptedstorageService } from './encryptedstorage.service';
 import { PasswordDialogComponent } from '../components/password-dialog/password-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { NavigateService } from './navigate.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class SchoolService {
   
   constructor(
     private encryptedstorage: EncryptedstorageService,
+    private navigateService: NavigateService,
   ) {
     this.getLocalSchool();
   }
@@ -39,8 +41,20 @@ export class SchoolService {
     return result;
   }
 
+  public async logout() {
+    const password = await this.passwordDialog();
+    if (this.encryptedstorage.validPassword(password)) {
+      this.removeLocalShool();
+      this.navigateService.login();
+    }
+  }
+
   public setLocalSchool(school: School, password: string) {
     this.encryptedstorage.setEncryptionKey(password);
     this.encryptedstorage.save('school', school);
+  }
+
+  public removeLocalShool() {
+    this.encryptedstorage.remove('school');
   }
 }

@@ -14,6 +14,7 @@ import { DialogCreateStudentComponent } from '../../components/dialog-create-stu
 import { StudentService } from '../../services/student.service';
 import { SchoolService } from '../../services/school.service';
 import { NavBarComponent } from "../../components/nav-bar/nav-bar.component";
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ import { NavBarComponent } from "../../components/nav-bar/nav-bar.component";
     MatExpansionModule,
     MatButtonToggleModule,
     MatButtonModule,
-    NavBarComponent
+    NavBarComponent,
+    MatMenuModule
 ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -43,7 +45,7 @@ export class HomeComponent implements OnInit {
   constructor (
     private navigate: NavigateService,
     private student: StudentService,
-    public schoolSer: SchoolService
+    public schoolService: SchoolService
   ) {}
   
   ngOnInit(): void {
@@ -73,6 +75,10 @@ export class HomeComponent implements OnInit {
 
   public editStudent(student: Student) {    
     this.navigate.student(student);
+  }
+
+  public logout() {
+    this.schoolService.logout();
   }
 
   public openDialogCreateStudent() {
