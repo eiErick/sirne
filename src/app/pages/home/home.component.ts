@@ -15,6 +15,7 @@ import { StudentService } from '../../services/student.service';
 import { SchoolService } from '../../services/school.service';
 import { NavBarComponent } from "../../components/nav-bar/nav-bar.component";
 import { MatMenuModule } from '@angular/material/menu';
+import { SettingsDialogComponent } from '../../components/settings-dialog/settings-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -79,6 +80,10 @@ export class HomeComponent implements OnInit {
 
   public logout() {
     this.schoolService.logout();
+  }
+
+  public openSetting() {
+    this.dialog.open(SettingsDialogComponent);
   }
 
   public openDialogCreateStudent() {
