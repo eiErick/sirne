@@ -40,4 +40,8 @@ export class EncryptedstorageService {
   public remove(key: string) {
     localStorage.removeItem(key);
   }
+
+  public validPassword(password: string): boolean {
+    return CryptoJS.SHA256(password).toString(CryptoJS.enc.Base64) === this.secretKey;
+  }
 }
