@@ -5,6 +5,14 @@ export interface Menu {
     id: string;
 }
 
+export interface MenuDatabase {
+    name: string;
+    calories: number;
+    lactose: boolean;
+    id: string;
+    type: 'snack' | 'lunch';
+}
+
 export interface Snack {
     name: string;
     calories: number;
