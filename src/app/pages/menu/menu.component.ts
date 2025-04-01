@@ -16,6 +16,7 @@ import { MatListModule } from '@angular/material/list';
 import { DialogConfirmDeleteComponent } from '../../components/dialog-confirm-delete/dialog-confirm-delete.component';
 import { MealDialogOpen } from '../../components/dialog-create-meal/dialog-create-meal.component';
 import { NutritionalInfoDialogComponent } from '../../components/nutritional-info-dialog/nutritional-info-dialog.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-menu',
@@ -28,7 +29,8 @@ import { NutritionalInfoDialogComponent } from '../../components/nutritional-inf
     MatSelectModule,
     MatFormFieldModule,
     MatButtonToggleModule,
-    MatListModule
+    MatListModule,
+    MatProgressSpinnerModule
 ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
@@ -37,6 +39,7 @@ export class MenuComponent {
   public menus = computed(() => this.menuService.menu());
   public snacks = computed(() => this.menuService.snacks());
   public lunches = computed(() => this.menuService.lunches());
+  public loadMenu = computed(() => this.menuService.load());
 
   public select: 'menu' | 'database' = 'menu';
   public databaseType: 'snack' | 'lunch' = 'snack';

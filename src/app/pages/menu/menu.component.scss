@@ -9,9 +9,17 @@ header {
     margin-bottom: 20px;
 
     .left {
+        display: flex;
+        gap: 10px;
+
         span {
             font-weight: 600;
             font-size: 18px;
+        }
+
+        mat-spinner {
+            width: 20px !important;
+            height: 20px !important;
         }
     }
 

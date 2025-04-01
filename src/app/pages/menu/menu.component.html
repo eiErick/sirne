@@ -1,6 +1,9 @@
 <header>
     <div class="left">
         <span>Sirne</span>
+        @if (loadMenu()) {
+            <mat-spinner />
+        }
     </div>
     <div class="right">
         <div class="menu">
