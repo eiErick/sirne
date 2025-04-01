@@ -1,7 +1,14 @@
 import { Injectable, signal } from '@angular/core';
-import { Lunch, Menu, Snack } from '../models/menu';
+import { Lunch, Menu, MenuDatabase, Snack } from '../models/menu';
 import { LocalstorageService } from './localstorage.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
+import Backendless from 'backendless';
+
+const APP_ID = '';
+const API_KEY = '';
+
+Backendless.initApp(APP_ID, API_KEY);
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +17,22 @@ export class MenuService {
   public menu = signal<Menu[]>([]);
   public lunches = signal<Lunch[]>([]);
   public snacks = signal<Snack[]>([]);
+  public load = signal<boolean>(false);
+
+  private NAME_SERVE_MENU = 'menu';
+  private NAME_SERVE_MENU_DATABASE = 'menu-database';
   
   constructor(
     private localstorageService: LocalstorageService,
     private snackBar: MatSnackBar,
   ) {
-    this.loadMenu();
+    this.loadLocalMenu();
   }
 
-  private loadMenu() {
+  private loadLocalMenu() {
     const snacks = this.localstorageService.get('snacks');
     const lunches = this.localstorageService.get('lunches');
-    const menu = this.localstorageService.get('menu');    
+    const menu = this.localstorageService.get('menu');
 
     if (snacks) {
       this.snacks.set(snacks);
@@ -50,6 +61,133 @@ export class MenuService {
       
       this.saveMenu();
     }
+
+    // this.getServeMenu();
+    // this.getServeMenuDatabase();
+  }
+
+  private getServeMenu() {
+    this.load.set(true);
+    new Observable(observer => {
+      Backendless.Data.of(this.NAME_SERVE_MENU).find().then(result => {
+        observer.next(result);
+        observer.complete();
+      }).catch(err => observer.error(err));
+    }).subscribe({
+      next: (res) => {
+        const menu = res as Menu[];
+        this.menu.set(menu);
+        this.saveMenu();
+        this.validateMenu();
+      },
+      complete: () => this.load.set(false),
+    });
+  }
+
+  private getServeMenuDatabase() {
+    new Observable(observer => {
+      Backendless.Data.of(this.NAME_SERVE_MENU_DATABASE).find().then(result => {
+        observer.next(result);
+        observer.complete();
+      }).catch(err => observer.error(err));
+    }).subscribe({
+      next: (res) => {
+        const database = res as MenuDatabase[];
+
+        let snacks: Snack[] = [];
+        let lunches: Lunch[] = [];
+        
+        database.forEach((data) => {
+          data.type === 'snack' ? snacks.push({ calories: data.calories, gluten: false, id: data.id, lactose: data.lactose, name: data.name }) : lunches.push({ calories: data.calories, gluten: false, id: data.id, name: data.name });
+        });
+
+        this.snacks.set(snacks);
+        this.lunches.set(lunches);
+
+        console.log(this.snacks());
+        
+      }
+    });
+  }
+
+  private putServeMenu(menu: Menu) {
+    const idMenu = (menu as any).objectId;
+
+    new Observable(observer => {
+      Backendless.Data.of(this.NAME_SERVE_MENU).save({ ...menu, objectId: idMenu }).then(result => {
+        observer.next(result);
+        observer.complete();
+      }).catch(err => observer.error(err));
+    }).subscribe({
+      next: (res) => {}
+    });
+  }
+
+  private addDataDatabaseServer(data: MenuDatabase) {
+    new Observable(observer => {
+      Backendless.Data.of(this.NAME_SERVE_MENU_DATABASE).save(data).then(result => {
+        observer.next(result);
+        observer.complete();
+      }).catch(err => observer.error(err));
+    }).subscribe({
+      next: (res) => {}
+    });
+  }
+
+  private createServerTables() {    
+    const tables: Menu[] = [
+      { day: 'segunda', id: 'mon', idLunch: 'empty', idSnack: 'empty' },
+      { day: 'terça', id: 'tue', idLunch: 'empty', idSnack: 'empty' },
+      { day: 'quarta', id: 'wed', idLunch: 'empty', idSnack: 'empty' },
+      { day: 'quinta', id: 'thu', idLunch: 'empty', idSnack: 'empty' },
+      { day: 'sexta', id: 'fri', idLunch: 'empty', idSnack: 'empty' },
+    ];
+
+    tables.forEach((table) => {
+      console.log(table);
+      
+      new Observable(observer => {
+        Backendless.Data.of(this.NAME_SERVE_MENU).save(table).then(result => {
+            observer.next(result);
+            observer.complete();
+          }).catch(error => observer.error(error));
+      }).subscribe({
+        next: (res) => {
+          const menu = res as Menu[];
+          this.menu.set(menu);
+        }
+      });
+    });
+  }
+
+  private deleteAllMenusServer() {
+    if (this.menu()) {
+      this.createServerTables();
+      return;
+    }
+
+    this.menu().forEach((menu) => {
+      const id = menu as any;
+
+      new Observable(observer => {
+        Backendless.Data.of(this.NAME_SERVE_MENU).remove({ objectId: id.objectId }).then(result => {
+          observer.next(result);
+          observer.complete();
+        }).catch(error => observer.error(error));
+      }).subscribe({
+        next: () => {          
+          this.createServerTables();
+        }
+      });
+    });
+  }
+
+  public validateMenu() {
+    const zero = this.menu().length === 0;
+
+    if (zero) {
+      this.createServerTables();
+    } 
   }
 
   public getSnackId(id: string): Snack | undefined {
@@ -67,6 +205,10 @@ export class MenuService {
       this.snackBar.open('Esta merenda já está cadastrada!', 'Ok');
     } else {
       snack.id = this.makeID();
+
+      const menuDatabase: MenuDatabase = { calories: snack.calories, id: snack.id, lactose: snack.lactose, name: snack.name, type: 'snack' };
+
+      // this.addDataDatabaseServer(menuDatabase);
       this.snacks.update(snacks => [ ...snacks, snack ]);
       this.saveMeals();
     }
@@ -79,6 +221,10 @@ export class MenuService {
       this.snackBar.open('Este almoço já está cadastrado!', 'ok');
     } else {
       lunch.id = this.makeID();
+
+      const menuDatabase: MenuDatabase = { calories: lunch.calories, id: lunch.id, lactose: false, name: lunch.name, type: 'snack' };
+
+      // this.addDataDatabaseServer(menuDatabase);
       this.lunches.update(lunches => [ ...lunches, lunch ]);
       this.saveMeals();
     }
@@ -95,6 +241,8 @@ export class MenuService {
   }
 
   public changeMenu(newMenuDay: Menu) {
+    // this.putServeMenu(newMenuDay);
+    
     this.menu.update(menu => menu.map(m => m.id === newMenuDay.id ? { ...newMenuDay } : m));
     this.saveMenu();
   }
