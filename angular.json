@@ -42,6 +42,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/sirne/",
               "outputPath": {
                 "base": "dist",
                 "browser": ""
