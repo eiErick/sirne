@@ -1,9 +1,10 @@
-import { inject, Injectable, OnInit, signal } from '@angular/core';
+import { inject, Injectable, OnInit, Signal, signal } from '@angular/core';
 import { School } from '../models/school';
 import { EncryptedstorageService } from './encryptedstorage.service';
 import { PasswordDialogComponent } from '../components/password-dialog/password-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { NavigateService } from './navigate.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,17 +22,22 @@ export class SchoolService {
   constructor(
     private encryptedstorage: EncryptedstorageService,
     private navigateService: NavigateService,
+    private authService: AuthService,
   ) {
     this.getLocalSchool();
   }
   
-  public async getLocalSchool() {    
-    const password = await this.passwordDialog();
-    this.encryptedstorage.setEncryptionKey(password);
-    
-    const schoolSaved = this.encryptedstorage.get('school');
-    
-    this.school.set(schoolSaved);
+  public async getLocalSchool() {
+    if (this.authService.isAuthenticated()) {
+      console.log(1);
+      
+      const password = await this.passwordDialog();
+      this.encryptedstorage.setEncryptionKey(password);
+      
+      const schoolSaved = this.encryptedstorage.get('school');
+      
+      this.school.set(schoolSaved);
+    }
   }
 
   private async passwordDialog(): Promise<string> {

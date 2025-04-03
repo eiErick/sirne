@@ -1,12 +1,10 @@
-import { inject, Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Injectable } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EncryptedstorageService {
-  private dialog = inject(MatDialog);
   private secretKey: string = '';
 
   public setEncryptionKey(password: string) {

@@ -4,8 +4,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { NavigateService } from '../../services/navigate.service';
+import { AuthService } from '../../services/auth.service';
+import { Auth } from '../../models/auth';
 import { SchoolService } from '../../services/school.service';
+import { School } from '../../models/school';
 
 @Component({
   selector: 'app-login',
@@ -20,16 +22,17 @@ import { SchoolService } from '../../services/school.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  public hash: string = '';
+  public auth: Auth = { api_key: '', app_id: '', siu: '' };
   public password: string = '';
 
   constructor (
-    private navigate: NavigateService,
-    private school: SchoolService,
+    private authService: AuthService,
+    private schoolService: SchoolService,
   ) {}
 
   public login() {
-    this.school.setLocalSchool({ name: 'ESCOLA', SIE: this.hash, technique: true, unity: 3 }, this.password);
-    this.navigate.home();
+    const school: School = { name: 'Escola', SIE: this.auth.siu, technique: true, unity: 3 };
+    this.schoolService.setLocalSchool(school, this.password);
+    this.authService.setLogin(this.auth, this.password);
   }
 }
