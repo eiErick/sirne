@@ -77,7 +77,7 @@ main {
             gap: 10px;
 
             .day {
-                background-color: #005CBB;
+                background-color: var(--primary-color);
                 color: #ffffff;
                 width: 250px;
                 text-align: center;
@@ -107,7 +107,7 @@ main {
 
                 mat-icon {
                     cursor: pointer;
-                    color: #005CBB;
+                    color: var(--primary-color);
                 }
             }
         }        

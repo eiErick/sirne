@@ -2,19 +2,20 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
+@use "./app/themes/orange.scss" as my-theme;
 
 html {
   @include mat.theme((
     color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
+      primary: my-theme.$primary-palette,
+      tertiary: my-theme.$tertiary-palette,
     ),
     typography: Roboto,
     density: 0,
   ));
 }:root {
   --gray: #74777F;
+  --primary-color: #FF6600;
 }
 
 * {
