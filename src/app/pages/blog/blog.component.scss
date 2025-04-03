@@ -6,7 +6,6 @@ header {
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--gray);
-    margin-bottom: 20px;
 
     .left {
         span {
@@ -24,7 +23,7 @@ header {
         justify-content: center;
         gap: 5px;
 
-        input {
+        .search {
             border: 1px solid var(--gray);
             border-radius: 4px;
             font-size: 14px;
@@ -46,7 +45,13 @@ header {
     }
 }
 
+nav {
+    margin: 10px;
+    display: none;
+}
+
 main {
+    margin-top: 20px;
     width: 100%;
 
     .container-thumbnails {
@@ -128,5 +133,25 @@ main {
         position: fixed;
         bottom: 20px;
         right: 20px;
+    }
+}
+
+@media (max-width: 1000px) {
+    nav {
+        display: flex;
+    }
+
+    header {
+        .right {
+            app-nav-bar {
+                display: none;
+            }
+        }
+
+        .center {
+            .search {
+                width: 160px;
+            }
+        }
     }
 }

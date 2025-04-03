@@ -14,6 +14,7 @@ import { StudentService } from '../../services/student.service';
 import { MatMenuModule } from '@angular/material/menu';
 import { ProfileComponent } from "../../components/profile/profile.component";
 import { NavBarComponent } from "../../components/nav-bar/nav-bar.component";
+import { ChipsNavBarComponent } from "../../components/chips-nav-bar/chips-nav-bar.component";
 
 @Component({
   selector: 'app-home',
@@ -27,8 +28,9 @@ import { NavBarComponent } from "../../components/nav-bar/nav-bar.component";
     MatButtonModule,
     MatMenuModule,
     ProfileComponent,
-    NavBarComponent
-  ],
+    NavBarComponent,
+    ChipsNavBarComponent
+],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

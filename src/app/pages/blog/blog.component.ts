@@ -13,6 +13,7 @@ import { PostDialogComponent } from '../../components/post-dialog/post-dialog.co
 import { NavBarComponent } from "../../components/nav-bar/nav-bar.component";
 import { DialogConfirmDeleteComponent } from '../../components/dialog-confirm-delete/dialog-confirm-delete.component';
 import { ProfileComponent } from "../../components/profile/profile.component";
+import { ChipsNavBarComponent } from "../../components/chips-nav-bar/chips-nav-bar.component";
 
 @Component({
   selector: 'app-blog',
@@ -26,7 +27,8 @@ import { ProfileComponent } from "../../components/profile/profile.component";
     DecimalPipe,
     NavBarComponent,
     MatButtonModule,
-    ProfileComponent
+    ProfileComponent,
+    ChipsNavBarComponent
 ],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.scss'

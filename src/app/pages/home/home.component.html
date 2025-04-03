@@ -4,7 +4,7 @@
     </div>
     <div class="center">
         <mat-icon fontIcon="search" />
-        <input type="search" [(ngModel)]="searchTerm" (input)="search(searchTerm)" placeholder="Digite o nome do aluno...">
+        <input class="search" type="search" [(ngModel)]="searchTerm" (input)="search(searchTerm)" placeholder="Pesquisar aluno...">
     </div>
     <div class="right">
         <div class="menu">
@@ -13,6 +13,10 @@
         <app-profile />
     </div>
 </header>
+
+<nav>
+    <app-chips-nav-bar />
+</nav>
 
 <main>
     <div class="container-students">

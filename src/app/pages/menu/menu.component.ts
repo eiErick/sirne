@@ -17,6 +17,7 @@ import { MealDialogOpen } from '../../components/dialog-create-meal/dialog-creat
 import { NutritionalInfoDialogComponent } from '../../components/nutritional-info-dialog/nutritional-info-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ProfileComponent } from "../../components/profile/profile.component";
+import { ChipsNavBarComponent } from "../../components/chips-nav-bar/chips-nav-bar.component";
 
 @Component({
   selector: 'app-menu',
@@ -31,7 +32,8 @@ import { ProfileComponent } from "../../components/profile/profile.component";
     MatButtonToggleModule,
     MatListModule,
     MatProgressSpinnerModule,
-    ProfileComponent
+    ProfileComponent,
+    ChipsNavBarComponent
 ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
