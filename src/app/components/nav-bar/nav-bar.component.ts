@@ -1,7 +1,7 @@
-import { Component, input } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
-import { NavigateService } from '../../services/navigate.service';
+import { NavBarService } from '../../services/nav-bar.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -13,22 +13,13 @@ import { NavigateService } from '../../services/navigate.service';
   styleUrl: './nav-bar.component.scss'
 })
 export class NavBarComponent {
-  public valueDefault = input<'blog' | 'student' | 'menu'>('blog');
+  public valueDefault = computed(() => this.navBarService.value());
 
   constructor (
-    private navigateService: NavigateService
+    private navBarService: NavBarService,
   ) {}
 
   public changeTab(menu: 'blog' | 'student' | 'menu') {
-    switch (menu) {
-      case 'blog':
-        this.navigateService.blog();
-        break;
-      case 'student':
-        this.navigateService.home();
-        break;
-      case 'menu':
-        this.navigateService.menu();
-    }
+    this.navBarService.changeTab(menu);
   }
 }
