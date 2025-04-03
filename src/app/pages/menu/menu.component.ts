@@ -2,7 +2,6 @@ import { Component, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { NavBarComponent } from "../../components/nav-bar/nav-bar.component";
-import { SchoolService } from '../../services/school.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateMealComponent } from '../../components/dialog-create-meal/dialog-create-meal.component';
@@ -17,6 +16,7 @@ import { DialogConfirmDeleteComponent } from '../../components/dialog-confirm-de
 import { MealDialogOpen } from '../../components/dialog-create-meal/dialog-create-meal.component';
 import { NutritionalInfoDialogComponent } from '../../components/nutritional-info-dialog/nutritional-info-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ProfileComponent } from "../../components/profile/profile.component";
 
 @Component({
   selector: 'app-menu',
@@ -30,7 +30,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatFormFieldModule,
     MatButtonToggleModule,
     MatListModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ProfileComponent
 ],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
@@ -45,7 +46,6 @@ export class MenuComponent {
   public databaseType: 'snack' | 'lunch' = 'snack';
 
   constructor (
-    public schoolService: SchoolService,
     private dialog: MatDialog,
     private menuService: MenuService,
   ) {

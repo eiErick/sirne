@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { School } from '../../models/school';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
@@ -12,10 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCreateStudentComponent } from '../../components/dialog-create-student/dialog-create-student.component';
 import { StudentService } from '../../services/student.service';
-import { SchoolService } from '../../services/school.service';
-import { NavBarComponent } from "../../components/nav-bar/nav-bar.component";
 import { MatMenuModule } from '@angular/material/menu';
-import { SettingsDialogComponent } from '../../components/settings-dialog/settings-dialog.component';
+import { ProfileComponent } from "../../components/profile/profile.component";
+import { NavBarComponent } from "../../components/nav-bar/nav-bar.component";
 
 @Component({
   selector: 'app-home',
@@ -27,9 +25,10 @@ import { SettingsDialogComponent } from '../../components/settings-dialog/settin
     MatExpansionModule,
     MatButtonToggleModule,
     MatButtonModule,
-    NavBarComponent,
-    MatMenuModule
-],
+    MatMenuModule,
+    ProfileComponent,
+    NavBarComponent
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -46,7 +45,6 @@ export class HomeComponent implements OnInit {
   constructor (
     private navigate: NavigateService,
     private student: StudentService,
-    public schoolService: SchoolService
   ) {}
   
   ngOnInit(): void {
@@ -76,14 +74,6 @@ export class HomeComponent implements OnInit {
 
   public editStudent(student: Student) {    
     this.navigate.student(student);
-  }
-
-  public logout() {
-    this.schoolService.logout();
-  }
-
-  public openSetting() {
-    this.dialog.open(SettingsDialogComponent);
   }
 
   public openDialogCreateStudent() {

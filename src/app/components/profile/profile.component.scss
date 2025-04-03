@@ -1,0 +1,19 @@
+:host {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.profile {
+    background-color: #131314;
+    height: 2rem;
+    width: 2rem;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+    .name-school {
+        display: none;
+    }
+}

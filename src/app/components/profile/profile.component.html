@@ -1,0 +1,14 @@
+<span class="name-school">Olá, {{ school().name }}</span>
+<span class="profile" [matMenuTriggerFor]="menu"></span>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="openSetting()">
+        <mat-icon fontIcon="settings" />
+        <span>Configurações</span>
+    </button>
+
+    <button mat-menu-item (click)="logout()">
+        <mat-icon fontIcon="logout" />
+        <span>Sair</span>
+    </button>
+</mat-menu>

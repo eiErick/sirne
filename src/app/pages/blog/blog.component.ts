@@ -8,11 +8,11 @@ import { DatePipe, DecimalPipe } from '@angular/common';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { NavigateService } from '../../services/navigate.service';
 import { BlogService } from '../../services/blog.service';
-import { SchoolService } from '../../services/school.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PostDialogComponent } from '../../components/post-dialog/post-dialog.component';
 import { NavBarComponent } from "../../components/nav-bar/nav-bar.component";
 import { DialogConfirmDeleteComponent } from '../../components/dialog-confirm-delete/dialog-confirm-delete.component';
+import { ProfileComponent } from "../../components/profile/profile.component";
 
 @Component({
   selector: 'app-blog',
@@ -25,7 +25,8 @@ import { DialogConfirmDeleteComponent } from '../../components/dialog-confirm-de
     MatButton,
     DecimalPipe,
     NavBarComponent,
-    MatButtonModule
+    MatButtonModule,
+    ProfileComponent
 ],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.scss'
@@ -38,7 +39,6 @@ export class BlogComponent {
   public filterThumbnails = signal<Thumbnail[]>([]);
 
   constructor (
-    public school: SchoolService,
     private blogService: BlogService,
     private navigate: NavigateService,
     private dialog: MatDialog,

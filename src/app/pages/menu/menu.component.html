@@ -9,10 +9,7 @@
         <div class="menu">
             <app-nav-bar valueDefault="menu" />
         </div>
-        @if (schoolService.school().name !== '') {
-            <span>Olá, {{ schoolService.school().name }}</span>
-            <span class="profile"></span>
-        }
+        <app-profile />
     </div>
 </header>
 
